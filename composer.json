@@ -1,0 +1,36 @@
+{
+    "name": "jsguruio/eusi-php-sdk",
+    "description": "Official PHP SDK for EUSI an API-first CMS",
+    "keywords": ["eusi", "php", "sdk"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sasa Blagojevic",
+            "email": "sasa.blagojevic@jsguru.io"
+        },
+        {
+            "name": "Milan Palangetic",
+            "email": "milan.palangetic@jsguru.io"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6.5.*",
+        "symfony/var-dumper": "^3.4"
+    },
+    "autoload": {
+        "files": ["src/functions.php"],
+        "psr-4": {
+            "Eusi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    }
+}
