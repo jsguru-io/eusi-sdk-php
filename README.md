@@ -1,7 +1,7 @@
-##eusi-sdk-php
+## eusi-sdk-php
 Official PHP SDK for EUSI an API-first CMS
 
-#####Table of contents
+##### Table of contents
 1. [Getting started](https://github.com/jsguru-io/eusi-sdk-php#getting-started)
 2. [Authorization](https://github.com/jsguru-io/eusi-sdk-php#authorization)
     * Access Token
@@ -14,7 +14,7 @@ Official PHP SDK for EUSI an API-first CMS
 5. [Forms](https://github.com/jsguru-io/eusi-sdk-php#forms)
 6. [Extra](https://github.com/jsguru-io/eusi-sdk-php#notes) 
 
-####Getting Started
+#### Getting Started
 
 First install our package with composer by calling 
 ``
@@ -43,7 +43,7 @@ EUSI_BUCKET_SECRET=agent-007
 ```php
 $eusi = new Eusi\Eusi();
 ``` 
-####Authorization
+#### Authorization
 To get an access token call authorize, to get a higher level access token login a user.
 
 ```php  
@@ -54,7 +54,7 @@ $bucket->login('john.doe@mail.com', '******');
 $bucket->register('sam.smith@mail.com', '******');
 ```
 
-####Fetching taxonomy
+#### Fetching taxonomy
 
 ```php
 
@@ -64,13 +64,13 @@ $bucket->taxonomyRaw('taxonomy-id-or-key');
 
 ```
 
-####Fetching content
+#### Fetching content
 
-#####Synchronous
+##### Synchronous
 ```php
 $items = $bucket->items()->fetch(10);
 ```
-#####Asynchronous
+##### Asynchronous
 ```php
 $items = $bucket->items()->async()->fetch(10)->unwrap();
        
@@ -89,7 +89,7 @@ $items = $items->unwrap();
 $items = $asyncItems->unwrap(false);
 ```
 
-#####Filtering content
+##### Filtering content
 For your convenience we made a query builder, it might be familiar to you from Laravel. All of the filtering methods are chainable, but some of them might not work together. All of the methods accept either multiple `$value` arguments or an array of values.
 
 ```php
@@ -157,7 +157,7 @@ Supported operators:
  'between' => '[$between]',
  'btw' => '[$between]'
 ```
-####Forms
+#### Forms
 ```php
     $form = $bucket->form('id-or-key');
     
@@ -171,7 +171,7 @@ Supported operators:
         'field_name_2 => 'bar'
     ]);
 ```
-####Extra
+#### Extra
 
 Any method that has a suffix 'Raw' returns a PSR-7 compliant Response object,
 otherwise your Response will be a `Eusi\Utils\Json` object. 
