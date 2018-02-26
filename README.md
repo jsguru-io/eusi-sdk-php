@@ -2,17 +2,17 @@
 Official PHP SDK for EUSI an API-first CMS
 
 ##### Table of contents
-1. [Getting started](https://github.com/jsguru-io/eusi-sdk-php#getting-started)
-2. [Authorization](https://github.com/jsguru-io/eusi-sdk-php#authorization)
+1. [Getting started](#getting-started)
+2. [Authorization](#authorization)
     * Access Token
     * Login/Register user
-3. [Fetching taxonomy](https://github.com/jsguru-io/eusi-sdk-php#taxonomy)
-4. [Fetching content](https://github.com/jsguru-io/eusi-sdk-php#content)
+3. [Fetching taxonomy](#fetching-taxonomy)
+4. [Fetching content](#fetching-content)
     * Synchronous
     * Asynchronous
     * Filtering
-5. [Forms](https://github.com/jsguru-io/eusi-sdk-php#forms)
-6. [Extra](https://github.com/jsguru-io/eusi-sdk-php#notes) 
+5. [Forms](#forms)
+6. [Extra](#extra) 
 
 #### Getting Started
 
