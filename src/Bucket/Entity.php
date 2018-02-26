@@ -12,6 +12,7 @@ namespace Eusi\Bucket;
 use Eusi\Auth\AccessToken;
 use Eusi\Auth\BearerToken;
 use Eusi\Auth\MemberToken;
+use Eusi\Delivery\Models\Member;
 use Eusi\Exceptions\InvalidTokenException;
 
 class Entity
@@ -39,6 +40,13 @@ class Entity
      * @var MemberToken
      */
     protected $memberToken;
+
+    /**
+     * Logged in user
+     *
+     * @var Member
+     */
+    protected $member;
 
     /**
      * Bucket entity constructor.
@@ -107,6 +115,14 @@ class Entity
     }
 
     /**
+     * @return Member
+     */
+    public function getMember()
+    {
+        return $this->member;
+    }
+
+    /**
      * @param AccessToken $token
      */
     public function setAcceToken(AccessToken $token)
@@ -122,8 +138,16 @@ class Entity
         $this->memberToken = $memberToken;
     }
 
-    public function unsetMemberToken()
+    /**
+     * @param Member $member
+     */
+    public function setMember(Member $member)
     {
-        unset($this->memberToken);
+        $this->member = $member;
+    }
+
+    public function unsetMember()
+    {
+        unset($this->memberToken, $this->member);
     }
 }

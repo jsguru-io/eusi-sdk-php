@@ -35,26 +35,17 @@ class MemberToken extends BearerToken
     protected $updatedAt;
 
     /**
-     * Authorized user id
-     *
-     * @var string
-     */
-    protected $memberId;
-
-    /**
      * MemberToken constructor.
      *
      * @param int $id
      * @param string $value
-     * @param string $memberId
      * @param string $createdAt
      * @param string $updatedAt
      */
-    public function __construct(int $id, string $value, string $memberId, string $createdAt, string $updatedAt)
+    public function __construct(int $id, string $value, string $createdAt, string $updatedAt)
     {
         $this->id = $id;
         $this->value = $value;
-        $this->memberId = $memberId;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
     }
@@ -86,15 +77,5 @@ class MemberToken extends BearerToken
     public function getUpdatedAt()
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * Get ID of authorized user
-     *
-     * @return string
-     */
-    public function getMemberId()
-    {
-        return $this->member_id;
     }
 }

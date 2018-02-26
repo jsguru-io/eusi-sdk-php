@@ -19,6 +19,7 @@ use Eusi\Delivery\HttpQueryBuilder;
 use Eusi\Delivery\HttpQuery;
 use Eusi\Delivery\Models\Field;
 use Eusi\Delivery\Models\Form;
+use Eusi\Delivery\Models\Member;
 use Eusi\Utils\Json;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 
@@ -105,6 +106,8 @@ class Bucket
 
         $this->entity->setMemberToken($memberToken);
 
+        $this->entity->setMember(new Member($body['member']));
+
         $this->client->defaultHeaders['Authorization'] = $memberToken;
 
         return $this;
@@ -135,6 +138,25 @@ class Bucket
         $this->client->sendRequest($request);
 
         return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function logout()
+    {
+        $this->entity->unsetMember();
+        $this->client->defaultHeaders['Authorization'] = $this->entity->getToken();
+
+        return $this;
+    }
+
+    /**
+     * @return Member
+     */
+    public function getUser()
+    {
+        return $this->entity->getMember();
     }
 
     /**
@@ -205,10 +227,6 @@ class Bucket
         );
 
         $form = json_decode($response->getBody(), true);
-
-        foreach ($form['fields'] as $i => $field) {
-            $form['fields'][$i] = new Field($field);
-        }
 
         return new Form($form, $this->client);
     }

@@ -86,7 +86,7 @@ $items = $bucket->items()->async()->fetch(10)->then(function ($response) {
 $items = $items->unwrap();
     
 // Throws exception
-$items = $asyncItems->unwrap(false);
+$items = $items->unwrap(false);
 ```
 
 ##### Filtering content
@@ -141,10 +141,8 @@ Or you can filter with the "low-level" fetch method building the query string ma
     ]);
 ```
 
-Supported operators:
+List of supported operators and their user friendly aliases used in `->where()`:
 ```php
- //Operator => Query string parameter
-    
  'like' => '[$like]',
  '~' => '[$like]',
  '||' => '[$or]',

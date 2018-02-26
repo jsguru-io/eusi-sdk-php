@@ -48,6 +48,10 @@ class Form extends Json
     {
         $this->content = $form;
 
+        foreach ($this->content['fields'] as $i => $field) {
+            $this->content['fields'][$i] = new Field($field);
+        }
+
         $this->client = $client;
 
         $this->method = $method;
