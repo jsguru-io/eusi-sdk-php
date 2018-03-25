@@ -175,7 +175,8 @@ class Bucket
     public function fetchItemsRaw($where = [])
     {
         $response = $this->client->get(
-            $this->client->getItemsEndpoint(http_query($where))
+            $this->client->getItemsEndpoint(http_query($where)),
+            ['Authorization' => $this->entity->getToken()]
         );
 
         return $response->getBody();
@@ -183,7 +184,7 @@ class Bucket
 
     /**
      * @param $identifier
-     * @return \Psr\Http\Message\StreamInterface
+     * @return Json
      */
     public function taxonomy($identifier)
     {
@@ -197,7 +198,8 @@ class Bucket
     public function taxonomyRaw($identifier)
     {
         $response = $this->client->get(
-            $this->client->getTaxonomyEndpoint($identifier)
+            $this->client->getTaxonomyEndpoint($identifier),
+            ['Authorization' => $this->entity->getToken()]
         );
 
         return $response->getBody();
@@ -223,7 +225,8 @@ class Bucket
     public function form($identifier)
     {
         $response = $this->client->get(
-            $this->client->getFormsEndpoint($identifier)
+            $this->client->getFormsEndpoint($identifier),
+            ['Authorization' => $this->entity->getToken()]
         );
 
         $form = json_decode($response->getBody(), true);

@@ -10,6 +10,7 @@ namespace Eusi\Bucket;
 
 
 use Eusi\Exceptions\EusiSDKException;
+use function Eusi\str_has;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -122,10 +123,10 @@ class Client extends \Eusi\Client
 
     /**
      * @param $name
-     * @param $arguments
+     * @param $args
      * @throws EusiSDKException
      */
-    public function __call($name, $arguments)
+    public function __call($name, $args)
     {
         switch (strtolower($name)) {
             case 'head':
@@ -136,33 +137,25 @@ class Client extends \Eusi\Client
             case 'patch':
             case 'delete':
 
-                $endpoint = $arguments[0];
+                $endpoint = $args[0];
 
                 $body = null;
 
-                if (count($arguments) > 2) {
+                if ($name == 'post' || $name == 'put' || $name == 'patch') {
 
-                    if ($name == 'post' || $name == 'put' || $name == 'patch') {
-                        $body = $arguments[1];
-                        $headers = $arguments[2];
-                    } else {
-                        $headers = $arguments[1];
-                    }
+                    $body = $args[1];
 
-                    if (!is_array($headers)) {
-                        exceptionAsJson(new \InvalidArgumentException("Argument 3 needs to be an array."));
-                    }
-
-                    $headers = array_merge($this->defaultHeaders, $headers);
+                    $headers = $args[2] ?? [];
 
                 } else {
-
-                    if ($name == 'post' || $name == 'patch' || $name == 'put') {
-                        $body = $arguments[1];
-                    }
-
-                    $headers = $this->defaultHeaders;
+                    $headers = $args[1] ?? [];
                 }
+
+                if (!is_array($headers)) {
+                    exceptionAsJson(new \InvalidArgumentException("Argument ".func_num_args()." needs to be an array."));
+                }
+
+                $headers = array_merge($this->defaultHeaders, $headers);
 
                 try {
 
