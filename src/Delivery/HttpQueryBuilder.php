@@ -17,6 +17,12 @@ use function Eusi\jsonMap;
 /**
  * Class HttpQueryBuilder
  *
+ * @method $this whereName($value)
+ * @method $this whereType($value)
+ * @method $this whereTax($value)
+ * @method $this whereTaxPath($value)
+ * @method $this whereElement($key, $value)
+ *
  * @method $this whereNameLike(...$values)
  * @method $this whereTypeLike(...$values)
  * @method $this whereTaxLike(...$values)
@@ -73,6 +79,7 @@ class HttpQueryBuilder
         'tax.path' => 'sys.taxonomy.path',
         'element' => 'element'
     ];
+
     /**
      * @var HttpQueryInterface
      */
@@ -87,16 +94,6 @@ class HttpQueryBuilder
      * @var bool
      */
     protected $async = false;
-
-    /**
-     * @var callable|null
-     */
-    protected $onSuccess;
-
-    /**
-     * @var callable|null
-     */
-    protected $onError;
 
     /**
      * @var array
@@ -127,7 +124,7 @@ class HttpQueryBuilder
 
         $paramsCount = count($params);
 
-        if (!$params || $paramsCount < 3) {
+        if (!$params || $paramsCount < 2) {
             exceptionAsJson(new \BadMethodCallException("Undefined method [$method]"));
         }
 
@@ -159,7 +156,7 @@ class HttpQueryBuilder
     protected function getQueryKeyFromMethod(array $params, $count)
     {
         return strtolower(
-            $count > 3 && $params[3] === 'Path' ? $params[1] . '.' . $params[2] :  $params[1]
+            $count >= 3 && in_array('Path', $params) ? $params[1] . '.' . $params[2] :  $params[1]
         );
     }
 
@@ -170,7 +167,10 @@ class HttpQueryBuilder
      */
     protected function getOperatorFromMethod(array $params, $count)
     {
-        return $count > 3 && $params[2] === 'Not' ? '!=' : $params[$count - 1];
+        if (in_array('Not', $params)) {
+            return '!=';
+        }
+        return $count < 3 || ($count === 3 && in_array('Path', $params)) ? '=' : $params[$count - 1];
     }
 
     /**
@@ -204,6 +204,10 @@ class HttpQueryBuilder
      */
     protected function mapQueryOperator($key)
     {
+        if ($key === "=") {
+            return "";
+        }
+
         $key = strtolower($key);
 
         if (isset($this->operators[$key])) {
@@ -236,12 +240,11 @@ class HttpQueryBuilder
         }
 
         $key = isset($args[2]) ?
-            $this->mapQueryKey($args[0]).$this->mapQueryOperator($args[1]) :
-            $this->mapQueryKey($args[0]);
+            $this->mapQueryKey($args[0]).$this->mapQueryOperator($args[1]) : $this->mapQueryKey($args[0]);
 
         $value = $argsCount > 2 ? $args[2] : $args[1];
 
-        if (strtolower($operator) === 'between') {
+        if (strtolower($operator) === 'between' || $operator === 'btw') {
             $value = implode(',', $value);
         }
 
@@ -254,6 +257,14 @@ class HttpQueryBuilder
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQueryString() : string
+    {
+        return urldecode($this->httpQuery->setQueryParams($this->filters)->getQueryParams());
     }
 
     /**

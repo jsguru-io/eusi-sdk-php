@@ -21,7 +21,7 @@ class Eusi
     /**
      * Eusi SDK Version
      */
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.1';
 
     /**
      * Env ID var name
@@ -117,7 +117,7 @@ class Eusi
      *
      * @return string
      */
-    public function getSecretId()
+    public function getBucketSecret()
     {
         return $this->authClient->getBucketSecret();
     }
@@ -134,14 +134,14 @@ class Eusi
         if (!$this->bucket) {
             $accessToken = $this->authClient->getAccessToken();
 
-            $this->bucket = new Bucket(
+            $this->setBucket(new Bucket(
                 $accessToken,
                 $this->authClient->getBucketId(),
                 $this->authClient->getBucketSecret(),
                 $this->config['host'],
                 $this->config['api_version'],
                 $this->config['http_client']
-            );
+            ));
         }
 
         return $this;
@@ -154,7 +154,7 @@ class Eusi
      */
     public function setBucket(Bucket $bucket)
     {
-        $this->$bucket = $bucket;
+        $this->bucket = $bucket;
     }
 
     /**
@@ -185,5 +185,15 @@ class Eusi
     public static function getSDKversion()
     {
         return static::VERSION;
+    }
+
+    /**
+     * Get SDK configurable options
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
     }
 }
