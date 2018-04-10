@@ -145,7 +145,6 @@ List of supported operators and their user friendly aliases used in `->where()`:
 ```php
  'like' => '[$like]',
  '~' => '[$like]',
- '||' => '[$or]',
  '>' => '[$gt]',
  '>=' => '[$gte]',
  '<' => '[$lt]',
@@ -161,12 +160,12 @@ List of supported operators and their user friendly aliases used in `->where()`:
     
     $form->submit([
         'field_name_1' => 'foo',
-        'field_name_2 => 'bar'
+        'field_name_2' => 'bar'
     ]);
     
     $form->submitAsync([
         'field_name_1' => 'foo',
-        'field_name_2 => 'bar'
+        'field_name_2' => 'bar'
     ]);
 ```
 #### Extra

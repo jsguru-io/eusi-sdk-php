@@ -139,6 +139,112 @@ class HttpQueryBuilderTest extends TestCase
         $this->assertSame('?sys.name[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.name', 'between', ['test-1', 'test-2'])->getQueryString());
     }
 
+    public function test_where_sys_key_equals_filter()
+    {
+        $this->assertSame("?sys.key=test", $this->makeQueryBuilder()->where("sys.key", "=", "test")->getQueryString());
+
+        $this->assertSame("?sys.key=test", $this->makeQueryBuilder()->where("sys.key", "test")->getQueryString());
+
+        $this->assertSame("?sys.key=test", $this->makeQueryBuilder()->whereKey('test')->getQueryString());
+    }
+
+    public function test_where_sys_key_lesser_than_filter()
+    {
+        $this->assertSame('?sys.key[$lt]=test', $this->makeQueryBuilder()->where('sys.key', '<', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$lt]=test', $this->makeQueryBuilder()->where('key', '<', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$lt]=test-1&sys.key[$lt]=test-2', $this->makeQueryBuilder()->where('sys.key', '<', ['test-1', 'test-2'])->getQueryString());
+    }
+
+    public function test_where_sys_key_lesser_equals_than_filter()
+    {
+        $this->assertSame('?sys.key[$lte]=test', $this->makeQueryBuilder()->where('sys.key', '<=', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$lte]=test', $this->makeQueryBuilder()->where('key', '<=', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$lte]=test-1&sys.key[$lte]=test-2', $this->makeQueryBuilder()->where('sys.key', '<=', ['test-1', 'test-2'])->getQueryString());
+    }
+
+    public function test_where_sys_key_greater_than_filter()
+    {
+        $this->assertSame('?sys.key[$gt]=test', $this->makeQueryBuilder()->where('sys.key', '>', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$gt]=test', $this->makeQueryBuilder()->where('key', '>', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$gt]=test-1&sys.key[$gt]=test-2', $this->makeQueryBuilder()->where('sys.key', '>', ['test-1', 'test-2'])->getQueryString());
+    }
+
+    public function test_where_sys_key_greater_equals_than_filter()
+    {
+        $this->assertSame('?sys.key[$gte]=test', $this->makeQueryBuilder()->where('sys.key', '>=', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$gte]=test', $this->makeQueryBuilder()->where('key', '>=', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$gte]=test-1&sys.key[$gte]=test-2', $this->makeQueryBuilder()->where('sys.key', '>=', ['test-1', 'test-2'])->getQueryString());
+    }
+
+    public function test_where_sys_key_like_filter()
+    {
+        $this->assertSame('?sys.key[$like]=%test%', $this->makeQueryBuilder()->where('sys.key', 'like', '%test%')->getQueryString());
+
+        $this->assertSame('?sys.key[$like]=%test%', $this->makeQueryBuilder()->where('key', '~', '%test%')->getQueryString());
+
+        $this->assertSame(
+            '?sys.key[$like]=%test-1%&sys.key[$like]=%test-2%',
+            $this->makeQueryBuilder()->whereKeyLike('%test-1%', '%test-2%')->getQueryString()
+        );
+
+        $this->assertSame(
+            '?sys.key[$like]=%test-1%&sys.key[$like]=%test-2%',
+            $this->makeQueryBuilder()->whereKeyLike(['%test-1%', '%test-2%'])->getQueryString()
+        );
+
+        $this->assertSame(
+            '?sys.key[$like]=%test-1%&sys.key[$like]=%test-2%',
+            $this->makeQueryBuilder()->where('sys.key', 'like', ['%test-1%', '%test-2%'])->getQueryString()
+        );
+    }
+
+    public function test_where_sys_key_in_filter()
+    {
+        $this->assertSame('?sys.key[$in]=test', $this->makeQueryBuilder()->where('sys.key', 'in', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$in]=test', $this->makeQueryBuilder()->where('key', 'in', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$in]=test-1&sys.key[$in]=test-2', $this->makeQueryBuilder()->whereKeyIn('test-1', 'test-2')->getQueryString());
+
+        $this->assertSame('?sys.key[$in]=test-1&sys.key[$in]=test-2', $this->makeQueryBuilder()->whereKeyIn(['test-1', 'test-2'])->getQueryString());
+
+        $this->assertSame('?sys.key[$in]=test-1&sys.key[$in]=test-2', $this->makeQueryBuilder()->where('sys.key', 'in', ['test-1', 'test-2'])->getQueryString());
+    }
+
+    public function test_where_sys_key_not_in_filter()
+    {
+        $this->assertSame('?sys.key[$ne]=test', $this->makeQueryBuilder()->where('sys.key', '!=', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$ne]=test', $this->makeQueryBuilder()->where('key', '!=', 'test')->getQueryString());
+
+        $this->assertSame('?sys.key[$ne]=test-1&sys.key[$ne]=test-2', $this->makeQueryBuilder()->whereKeyNotIn('test-1', 'test-2')->getQueryString());
+
+        $this->assertSame('?sys.key[$ne]=test-1&sys.key[$ne]=test-2', $this->makeQueryBuilder()->whereKeyNotIn(['test-1', 'test-2'])->getQueryString());
+
+        $this->assertSame('?sys.key[$ne]=test-1&sys.key[$ne]=test-2', $this->makeQueryBuilder()->where('sys.key', '!=', ['test-1', 'test-2'])->getQueryString());
+    }
+
+    public function test_where_sys_key_between_filter()
+    {
+        $this->assertSame('?sys.key[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.key', 'btw', ['test-1', 'test-2'])->getQueryString());
+
+        $this->assertSame('?sys.key[$between]=test-1,test-2', $this->makeQueryBuilder()->where('key', 'btw', ['test-1', 'test-2'])->getQueryString());
+
+        $this->assertSame('?sys.key[$between]=test-1,test-2', $this->makeQueryBuilder()->whereKeyBetween(['test-1', 'test-2'])->getQueryString());
+
+        $this->assertSame('?sys.key[$between]=test-1,test-2', $this->makeQueryBuilder()->whereKeyBetween(['test-1', 'test-2'])->getQueryString());
+
+        $this->assertSame('?sys.key[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.key', 'between', ['test-1', 'test-2'])->getQueryString());
+    }
+
     public function test_where_sys_type_equals_filter()
     {
         $this->assertSame("?sys.type=test", $this->makeQueryBuilder()->where("sys.type", "=", "test")->getQueryString());

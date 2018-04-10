@@ -18,30 +18,35 @@ use function Eusi\jsonMap;
  * Class HttpQueryBuilder
  *
  * @method $this whereName($value)
+ * @method $this whereKey($value)
  * @method $this whereType($value)
  * @method $this whereTax($value)
  * @method $this whereTaxPath($value)
  * @method $this whereElement($key, $value)
  *
  * @method $this whereNameLike(...$values)
+ * @method $this whereKeyLike(...$values)
  * @method $this whereTypeLike(...$values)
  * @method $this whereTaxLike(...$values)
  * @method $this whereTaxPathLike(...$values)
  * @method $this whereElementLike($key,... $values)
  *
  * @method $this whereNameIn(...$values)
+ * @method $this whereKeyIn(...$values)
  * @method $this whereTypeIn(...$values)
  * @method $this whereTaxIn(...$values)
  * @method $this whereTaxPathIn(...$values)
  * @method $this whereElementIn($key,...$values)
  *
  * @method $this whereNameBetween(...$values)
+ * @method $this whereKeyBetween(...$values)
  * @method $this whereTypeBetween(...$values)
  * @method $this whereTaxBetween(...$values)
  * @method $this whereTaxPathBetween(...$values)
  * @method $this whereElementBetween($key,...$values)
  *
  * @method $this whereNameNotIn(...$values)
+ * @method $this whereKeyNotIn(...$values)
  * @method $this whereTypeNotIn(...$values)
  * @method $this whereTaxNotIn(...$values)
  * @method $this whereTaxPathNotIn(...$values)
@@ -72,6 +77,7 @@ class HttpQueryBuilder
      */
     private $queryKeys = [
         'name' => 'sys.name',
+        'key' => 'sys.key',
         'type' => 'sys.type',
         'tax' => 'sys.taxonomy',
         'taxonomy' => 'sys.taxonomy',
