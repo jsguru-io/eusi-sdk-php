@@ -88,14 +88,17 @@ class HttpQueryBuilder
     private $queryKeys = [
         'model' => 'sys.model',
         'title' => 'sys.title',
-        'name' => 'sys.title',
         'key' => 'sys.key',
-        'type' => 'sys.model',
         'tax' => 'sys.taxonomy',
         'taxonomy' => 'sys.taxonomy',
         'taxonomy.path' => 'sys.taxonomy.path',
         'tax.path' => 'sys.taxonomy.path',
-        'element' => 'element'
+        'element' => 'element',
+        // Deprecated keys
+        'type' => 'sys.model',
+        'name' => 'sys.title',
+        'sys.name' => 'sys.title',
+        'sys.type' => 'sys.model'
     ];
 
     /**
