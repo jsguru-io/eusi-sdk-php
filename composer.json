@@ -1,7 +1,7 @@
 {
     "name": "jsguruio/eusi-php-sdk",
     "description": "Official PHP SDK for EUSI an API-first CMS",
-    "keywords": ["eusi", "php", "sdk"],
+    "keywords": ["eusi", "php", "sdk", "headless-cms", "cms", "api"],
     "type": "library",
     "license": "MIT",
     "authors": [

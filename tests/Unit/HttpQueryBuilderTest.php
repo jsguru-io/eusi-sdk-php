@@ -33,110 +33,110 @@ class HttpQueryBuilderTest extends TestCase
         $this->assertSame('', $this->makeQueryBuilder()->getQueryString());
     }
 
-    public function test_where_sys_name_equals_filter()
+    public function test_where_sys_title_equals_filter()
     {
-        $this->assertSame("?sys.name=test", $this->makeQueryBuilder()->where("sys.name", "=", "test")->getQueryString());
+        $this->assertSame("?sys.title=test", $this->makeQueryBuilder()->where("sys.title", "=", "test")->getQueryString());
 
-        $this->assertSame("?sys.name=test", $this->makeQueryBuilder()->where("sys.name", "test")->getQueryString());
+        $this->assertSame("?sys.title=test", $this->makeQueryBuilder()->where("sys.title", "test")->getQueryString());
 
-        $this->assertSame("?sys.name=test", $this->makeQueryBuilder()->whereName('test')->getQueryString());
+        $this->assertSame("?sys.title=test", $this->makeQueryBuilder()->whereName('test')->getQueryString());
     }
 
-    public function test_where_sys_name_lesser_than_filter()
+    public function test_where_sys_title_lesser_than_filter()
     {
-        $this->assertSame('?sys.name[$lt]=test', $this->makeQueryBuilder()->where('sys.name', '<', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$lt]=test', $this->makeQueryBuilder()->where('sys.title', '<', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$lt]=test', $this->makeQueryBuilder()->where('name', '<', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$lt]=test', $this->makeQueryBuilder()->where('name', '<', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$lt]=test-1&sys.name[$lt]=test-2', $this->makeQueryBuilder()->where('sys.name', '<', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$lt]=test-1&sys.title[$lt]=test-2', $this->makeQueryBuilder()->where('sys.title', '<', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_name_lesser_equals_than_filter()
+    public function test_where_sys_title_lesser_equals_than_filter()
     {
-        $this->assertSame('?sys.name[$lte]=test', $this->makeQueryBuilder()->where('sys.name', '<=', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$lte]=test', $this->makeQueryBuilder()->where('sys.title', '<=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$lte]=test', $this->makeQueryBuilder()->where('name', '<=', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$lte]=test', $this->makeQueryBuilder()->where('name', '<=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$lte]=test-1&sys.name[$lte]=test-2', $this->makeQueryBuilder()->where('sys.name', '<=', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$lte]=test-1&sys.title[$lte]=test-2', $this->makeQueryBuilder()->where('sys.title', '<=', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_name_greater_than_filter()
+    public function test_where_sys_title_greater_than_filter()
     {
-        $this->assertSame('?sys.name[$gt]=test', $this->makeQueryBuilder()->where('sys.name', '>', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$gt]=test', $this->makeQueryBuilder()->where('sys.title', '>', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$gt]=test', $this->makeQueryBuilder()->where('name', '>', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$gt]=test', $this->makeQueryBuilder()->where('name', '>', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$gt]=test-1&sys.name[$gt]=test-2', $this->makeQueryBuilder()->where('sys.name', '>', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$gt]=test-1&sys.title[$gt]=test-2', $this->makeQueryBuilder()->where('sys.title', '>', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_name_greater_equals_than_filter()
+    public function test_where_sys_title_greater_equals_than_filter()
     {
-        $this->assertSame('?sys.name[$gte]=test', $this->makeQueryBuilder()->where('sys.name', '>=', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$gte]=test', $this->makeQueryBuilder()->where('sys.title', '>=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$gte]=test', $this->makeQueryBuilder()->where('name', '>=', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$gte]=test', $this->makeQueryBuilder()->where('name', '>=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$gte]=test-1&sys.name[$gte]=test-2', $this->makeQueryBuilder()->where('sys.name', '>=', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$gte]=test-1&sys.title[$gte]=test-2', $this->makeQueryBuilder()->where('sys.title', '>=', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_name_like_filter()
+    public function test_where_sys_title_like_filter()
     {
-        $this->assertSame('?sys.name[$like]=%test%', $this->makeQueryBuilder()->where('sys.name', 'like', '%test%')->getQueryString());
+        $this->assertSame('?sys.title[$like]=%test%', $this->makeQueryBuilder()->where('sys.title', 'like', '%test%')->getQueryString());
 
-        $this->assertSame('?sys.name[$like]=%test%', $this->makeQueryBuilder()->where('name', '~', '%test%')->getQueryString());
+        $this->assertSame('?sys.title[$like]=%test%', $this->makeQueryBuilder()->where('name', '~', '%test%')->getQueryString());
 
         $this->assertSame(
-            '?sys.name[$like]=%test-1%&sys.name[$like]=%test-2%',
+            '?sys.title[$like]=%test-1%&sys.title[$like]=%test-2%',
             $this->makeQueryBuilder()->whereNameLike('%test-1%', '%test-2%')->getQueryString()
         );
 
         $this->assertSame(
-            '?sys.name[$like]=%test-1%&sys.name[$like]=%test-2%',
+            '?sys.title[$like]=%test-1%&sys.title[$like]=%test-2%',
             $this->makeQueryBuilder()->whereNameLike(['%test-1%', '%test-2%'])->getQueryString()
         );
 
         $this->assertSame(
-            '?sys.name[$like]=%test-1%&sys.name[$like]=%test-2%',
-            $this->makeQueryBuilder()->where('sys.name', 'like', ['%test-1%', '%test-2%'])->getQueryString()
+            '?sys.title[$like]=%test-1%&sys.title[$like]=%test-2%',
+            $this->makeQueryBuilder()->where('sys.title', 'like', ['%test-1%', '%test-2%'])->getQueryString()
         );
     }
 
-    public function test_where_sys_name_in_filter()
+    public function test_where_sys_title_in_filter()
     {
-        $this->assertSame('?sys.name[$in]=test', $this->makeQueryBuilder()->where('sys.name', 'in', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$in]=test', $this->makeQueryBuilder()->where('sys.title', 'in', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$in]=test', $this->makeQueryBuilder()->where('name', 'in', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$in]=test', $this->makeQueryBuilder()->where('name', 'in', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$in]=test-1&sys.name[$in]=test-2', $this->makeQueryBuilder()->whereNameIn('test-1', 'test-2')->getQueryString());
+        $this->assertSame('?sys.title[$in]=test-1&sys.title[$in]=test-2', $this->makeQueryBuilder()->whereNameIn('test-1', 'test-2')->getQueryString());
 
-        $this->assertSame('?sys.name[$in]=test-1&sys.name[$in]=test-2', $this->makeQueryBuilder()->whereNameIn(['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$in]=test-1&sys.title[$in]=test-2', $this->makeQueryBuilder()->whereNameIn(['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.name[$in]=test-1&sys.name[$in]=test-2', $this->makeQueryBuilder()->where('sys.name', 'in', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$in]=test-1&sys.title[$in]=test-2', $this->makeQueryBuilder()->where('sys.title', 'in', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_name_not_in_filter()
+    public function test_where_sys_title_not_in_filter()
     {
-        $this->assertSame('?sys.name[$ne]=test', $this->makeQueryBuilder()->where('sys.name', '!=', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$ne]=test', $this->makeQueryBuilder()->where('sys.title', '!=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$ne]=test', $this->makeQueryBuilder()->where('name', '!=', 'test')->getQueryString());
+        $this->assertSame('?sys.title[$ne]=test', $this->makeQueryBuilder()->where('name', '!=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.name[$ne]=test-1&sys.name[$ne]=test-2', $this->makeQueryBuilder()->whereNameNotIn('test-1', 'test-2')->getQueryString());
+        $this->assertSame('?sys.title[$ne]=test-1&sys.title[$ne]=test-2', $this->makeQueryBuilder()->whereNameNotIn('test-1', 'test-2')->getQueryString());
 
-        $this->assertSame('?sys.name[$ne]=test-1&sys.name[$ne]=test-2', $this->makeQueryBuilder()->whereNameNotIn(['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$ne]=test-1&sys.title[$ne]=test-2', $this->makeQueryBuilder()->whereNameNotIn(['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.name[$ne]=test-1&sys.name[$ne]=test-2', $this->makeQueryBuilder()->where('sys.name', '!=', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$ne]=test-1&sys.title[$ne]=test-2', $this->makeQueryBuilder()->where('sys.title', '!=', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_name_between_filter()
+    public function test_where_sys_title_between_filter()
     {
-        $this->assertSame('?sys.name[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.name', 'btw', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.title', 'btw', ['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.name[$between]=test-1,test-2', $this->makeQueryBuilder()->where('name', 'btw', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$between]=test-1,test-2', $this->makeQueryBuilder()->where('name', 'btw', ['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.name[$between]=test-1,test-2', $this->makeQueryBuilder()->whereNameBetween(['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$between]=test-1,test-2', $this->makeQueryBuilder()->whereNameBetween(['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.name[$between]=test-1,test-2', $this->makeQueryBuilder()->whereNameBetween(['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$between]=test-1,test-2', $this->makeQueryBuilder()->whereNameBetween(['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.name[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.name', 'between', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.title[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.title', 'between', ['test-1', 'test-2'])->getQueryString());
     }
 
     public function test_where_sys_key_equals_filter()
@@ -245,101 +245,101 @@ class HttpQueryBuilderTest extends TestCase
         $this->assertSame('?sys.key[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.key', 'between', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_type_equals_filter()
+    public function test_where_sys_model_equals_filter()
     {
-        $this->assertSame("?sys.type=test", $this->makeQueryBuilder()->where("sys.type", "=", "test")->getQueryString());
+        $this->assertSame("?sys.model=test", $this->makeQueryBuilder()->where("sys.model", "=", "test")->getQueryString());
 
-        $this->assertSame("?sys.type=test", $this->makeQueryBuilder()->where("sys.type", "test")->getQueryString());
+        $this->assertSame("?sys.model=test", $this->makeQueryBuilder()->where("sys.model", "test")->getQueryString());
 
-        $this->assertSame("?sys.type=test", $this->makeQueryBuilder()->whereType('test')->getQueryString());
+        $this->assertSame("?sys.model=test", $this->makeQueryBuilder()->whereType('test')->getQueryString());
     }
 
-    public function test_where_sys_type_lesser_than_filter()
+    public function test_where_sys_model_lesser_than_filter()
     {
-        $this->assertSame('?sys.type[$lt]=test', $this->makeQueryBuilder()->where('sys.type', '<', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$lt]=test', $this->makeQueryBuilder()->where('sys.model', '<', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$lt]=test', $this->makeQueryBuilder()->where('type', '<', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$lt]=test', $this->makeQueryBuilder()->where('type', '<', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$lt]=test-1&sys.type[$lt]=test-2', $this->makeQueryBuilder()->where('sys.type', '<', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$lt]=test-1&sys.model[$lt]=test-2', $this->makeQueryBuilder()->where('sys.model', '<', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_type_lesser_equals_than_filter()
+    public function test_where_sys_model_lesser_equals_than_filter()
     {
-        $this->assertSame('?sys.type[$lte]=test', $this->makeQueryBuilder()->where('sys.type', '<=', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$lte]=test', $this->makeQueryBuilder()->where('sys.model', '<=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$lte]=test', $this->makeQueryBuilder()->where('type', '<=', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$lte]=test', $this->makeQueryBuilder()->where('type', '<=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$lte]=test-1&sys.type[$lte]=test-2', $this->makeQueryBuilder()->where('sys.type', '<=', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$lte]=test-1&sys.model[$lte]=test-2', $this->makeQueryBuilder()->where('sys.model', '<=', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_type_greater_than_filter()
+    public function test_where_sys_model_greater_than_filter()
     {
-        $this->assertSame('?sys.type[$gt]=test', $this->makeQueryBuilder()->where('sys.type', '>', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$gt]=test', $this->makeQueryBuilder()->where('sys.model', '>', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$gt]=test', $this->makeQueryBuilder()->where('type', '>', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$gt]=test', $this->makeQueryBuilder()->where('type', '>', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$gt]=test-1&sys.type[$gt]=test-2', $this->makeQueryBuilder()->where('sys.type', '>', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$gt]=test-1&sys.model[$gt]=test-2', $this->makeQueryBuilder()->where('sys.model', '>', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_type_greater_equals_than_filter()
+    public function test_where_sys_model_greater_equals_than_filter()
     {
-        $this->assertSame('?sys.type[$gte]=test', $this->makeQueryBuilder()->where('sys.type', '>=', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$gte]=test', $this->makeQueryBuilder()->where('sys.model', '>=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$gte]=test', $this->makeQueryBuilder()->where('type', '>=', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$gte]=test', $this->makeQueryBuilder()->where('type', '>=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$gte]=test-1&sys.type[$gte]=test-2', $this->makeQueryBuilder()->where('sys.type', '>=', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$gte]=test-1&sys.model[$gte]=test-2', $this->makeQueryBuilder()->where('sys.model', '>=', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_type_like_filter()
+    public function test_where_sys_model_like_filter()
     {
-        $this->assertSame('?sys.type[$like]=%test%', $this->makeQueryBuilder()->where('sys.type', 'like', '%test%')->getQueryString());
+        $this->assertSame('?sys.model[$like]=%test%', $this->makeQueryBuilder()->where('sys.model', 'like', '%test%')->getQueryString());
 
-        $this->assertSame('?sys.type[$like]=%test%', $this->makeQueryBuilder()->where('type', '~', '%test%')->getQueryString());
+        $this->assertSame('?sys.model[$like]=%test%', $this->makeQueryBuilder()->where('type', '~', '%test%')->getQueryString());
 
-        $this->assertSame('?sys.type[$like]=%test-1%&sys.type[$like]=%test-2%', $this->makeQueryBuilder()->whereTypeLike('%test-1%', '%test-2%')->getQueryString());
+        $this->assertSame('?sys.model[$like]=%test-1%&sys.model[$like]=%test-2%', $this->makeQueryBuilder()->whereTypeLike('%test-1%', '%test-2%')->getQueryString());
 
-        $this->assertSame('?sys.type[$like]=%test-1%&sys.type[$like]=%test-2%', $this->makeQueryBuilder()->whereTypeLike(['%test-1%', '%test-2%'])->getQueryString());
+        $this->assertSame('?sys.model[$like]=%test-1%&sys.model[$like]=%test-2%', $this->makeQueryBuilder()->whereTypeLike(['%test-1%', '%test-2%'])->getQueryString());
 
-        $this->assertSame('?sys.type[$like]=%test-1%&sys.type[$like]=%test-2%', $this->makeQueryBuilder()->where('sys.type', 'like', ['%test-1%', '%test-2%'])->getQueryString());
+        $this->assertSame('?sys.model[$like]=%test-1%&sys.model[$like]=%test-2%', $this->makeQueryBuilder()->where('sys.model', 'like', ['%test-1%', '%test-2%'])->getQueryString());
     }
 
-    public function test_where_sys_type_in_filter()
+    public function test_where_sys_model_in_filter()
     {
-        $this->assertSame('?sys.type[$in]=test', $this->makeQueryBuilder()->where('sys.type', 'in', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$in]=test', $this->makeQueryBuilder()->where('sys.model', 'in', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$in]=test', $this->makeQueryBuilder()->where('type', 'in', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$in]=test', $this->makeQueryBuilder()->where('type', 'in', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$in]=test-1&sys.type[$in]=test-2', $this->makeQueryBuilder()->whereTypeIn('test-1', 'test-2')->getQueryString());
+        $this->assertSame('?sys.model[$in]=test-1&sys.model[$in]=test-2', $this->makeQueryBuilder()->whereTypeIn('test-1', 'test-2')->getQueryString());
 
-        $this->assertSame('?sys.type[$in]=test-1&sys.type[$in]=test-2', $this->makeQueryBuilder()->whereTypeIn(['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$in]=test-1&sys.model[$in]=test-2', $this->makeQueryBuilder()->whereTypeIn(['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.type[$in]=test-1&sys.type[$in]=test-2', $this->makeQueryBuilder()->where('sys.type', 'in', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$in]=test-1&sys.model[$in]=test-2', $this->makeQueryBuilder()->where('sys.model', 'in', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_type_not_in_filter()
+    public function test_where_sys_model_not_in_filter()
     {
-        $this->assertSame('?sys.type[$ne]=test', $this->makeQueryBuilder()->where('sys.type', '!=', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$ne]=test', $this->makeQueryBuilder()->where('sys.model', '!=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$ne]=test', $this->makeQueryBuilder()->where('type', '!=', 'test')->getQueryString());
+        $this->assertSame('?sys.model[$ne]=test', $this->makeQueryBuilder()->where('type', '!=', 'test')->getQueryString());
 
-        $this->assertSame('?sys.type[$ne]=test-1&sys.type[$ne]=test-2', $this->makeQueryBuilder()->whereTypeNotIn('test-1', 'test-2')->getQueryString());
+        $this->assertSame('?sys.model[$ne]=test-1&sys.model[$ne]=test-2', $this->makeQueryBuilder()->whereTypeNotIn('test-1', 'test-2')->getQueryString());
 
-        $this->assertSame('?sys.type[$ne]=test-1&sys.type[$ne]=test-2', $this->makeQueryBuilder()->whereTypeNotIn(['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$ne]=test-1&sys.model[$ne]=test-2', $this->makeQueryBuilder()->whereTypeNotIn(['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.type[$ne]=test-1&sys.type[$ne]=test-2', $this->makeQueryBuilder()->where('sys.type', '!=', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$ne]=test-1&sys.model[$ne]=test-2', $this->makeQueryBuilder()->where('sys.model', '!=', ['test-1', 'test-2'])->getQueryString());
     }
 
-    public function test_where_sys_type_between_filter()
+    public function test_where_sys_model_between_filter()
     {
-        $this->assertSame('?sys.type[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.type', 'btw', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.model', 'btw', ['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.type[$between]=test-1,test-2', $this->makeQueryBuilder()->where('type', 'btw', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$between]=test-1,test-2', $this->makeQueryBuilder()->where('type', 'btw', ['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.type[$between]=test-1,test-2', $this->makeQueryBuilder()->whereTypeBetween(['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$between]=test-1,test-2', $this->makeQueryBuilder()->whereTypeBetween(['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.type[$between]=test-1,test-2', $this->makeQueryBuilder()->whereTypeBetween(['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$between]=test-1,test-2', $this->makeQueryBuilder()->whereTypeBetween(['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?sys.type[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.type', 'between', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?sys.model[$between]=test-1,test-2', $this->makeQueryBuilder()->where('sys.model', 'between', ['test-1', 'test-2'])->getQueryString());
     }
 
     public function test_where_taxonomy_equals_filter()

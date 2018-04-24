@@ -17,37 +17,47 @@ use function Eusi\jsonMap;
 /**
  * Class HttpQueryBuilder
  *
- * @method $this whereName($value)
+ * @deprecated @method $this whereName($value)
+ * @method $this whereTitle($value)
  * @method $this whereKey($value)
- * @method $this whereType($value)
+ * @deprecated @method $this whereType($value)
+ * @method $this whereModel($value)
  * @method $this whereTax($value)
  * @method $this whereTaxPath($value)
  * @method $this whereElement($key, $value)
  *
- * @method $this whereNameLike(...$values)
+ * @deprecated @method $this whereNameLike(...$values)
+ * @method $this whereTitleLike(...$values)
  * @method $this whereKeyLike(...$values)
- * @method $this whereTypeLike(...$values)
+ * @deprecated @method $this whereTypeLike(...$values)
+ * @method $this whereModelLike(...$values)
  * @method $this whereTaxLike(...$values)
  * @method $this whereTaxPathLike(...$values)
  * @method $this whereElementLike($key,... $values)
  *
- * @method $this whereNameIn(...$values)
+ * @deprecated @method $this whereNameIn(...$values)
+ * @method $this whereTitleIn(...$values)
  * @method $this whereKeyIn(...$values)
- * @method $this whereTypeIn(...$values)
+ * @deprecated @method $this whereTypeIn(...$values)
+ * @method $this whereModelIn(...$values)
  * @method $this whereTaxIn(...$values)
  * @method $this whereTaxPathIn(...$values)
  * @method $this whereElementIn($key,...$values)
  *
- * @method $this whereNameBetween(...$values)
+ * @deprecated @method $this whereNameBetween(...$values)
+ * @method $this whereTitleBetween(...$values)
  * @method $this whereKeyBetween(...$values)
- * @method $this whereTypeBetween(...$values)
+ * @deprecated @method $this whereTypeBetween(...$values)
+ * @method $this whereModelBetween(...$values)
  * @method $this whereTaxBetween(...$values)
  * @method $this whereTaxPathBetween(...$values)
  * @method $this whereElementBetween($key,...$values)
  *
- * @method $this whereNameNotIn(...$values)
+ * @deprecated @method $this whereNameNotIn(...$values)
+ * @method $this whereTitleNotIn(...$values)
  * @method $this whereKeyNotIn(...$values)
- * @method $this whereTypeNotIn(...$values)
+ * @deprecated @method $this whereTypeNotIn(...$values)
+ * @method $this whereModelNotIn(...$values)
  * @method $this whereTaxNotIn(...$values)
  * @method $this whereTaxPathNotIn(...$values)
  * @method $this whereElementNotIn($key,...$values)
@@ -76,9 +86,11 @@ class HttpQueryBuilder
      * @var array
      */
     private $queryKeys = [
-        'name' => 'sys.name',
+        'model' => 'sys.model',
+        'title' => 'sys.title',
+        'name' => 'sys.title',
         'key' => 'sys.key',
-        'type' => 'sys.type',
+        'type' => 'sys.model',
         'tax' => 'sys.taxonomy',
         'taxonomy' => 'sys.taxonomy',
         'taxonomy.path' => 'sys.taxonomy.path',
