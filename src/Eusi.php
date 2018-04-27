@@ -21,7 +21,7 @@ class Eusi
     /**
      * Eusi SDK Version
      */
-    const VERSION = '1.0.3';
+    const VERSION = '1.0.2';
 
     /**
      * Env ID var name
