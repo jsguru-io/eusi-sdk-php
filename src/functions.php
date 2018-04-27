@@ -86,11 +86,21 @@ function jsonMap(string $json)
 
     foreach ($iterator as $key => $value) {
 
-        if (!is_numeric($key) && ($key === 'content' || $key === 'data' || $key === 'media')) {
+        if (!is_numeric($key) && ($key === 'content' || $key === 'linked_content' || $key === 'data' || $key === 'media')) {
 
             if (is_array($value) && !empty($value)) {
 
-                $class = "Eusi\\Delivery\\Models\\" . ($key == 'data' ? 'Item' : ucfirst($key));
+                switch ($key) {
+                    case "linked_content":
+                        $class = "Eusi\\Delivery\\Models\\Content";
+                        break;
+                    case "data":
+                        $class = "Eusi\\Delivery\\Models\\Item";
+                        break;
+                    default:
+                        $class = "Eusi\\Delivery\\Models\\".ucfirst($key);
+                        break;
+                }
 
                 $newValue = [];
                 array_walk($value, function ($v, $i) use (&$newValue, $class) {

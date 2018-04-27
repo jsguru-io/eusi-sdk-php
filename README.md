@@ -105,20 +105,20 @@ Here is a full list of helper methods for reference.
 
 $items = $bucket->items()
     
-    ->whereNameIn(...$values)
-    ->whereNameLike(...$values)
-    ->whereNameNotIn(...$values)
-    ->whereNameBetween(... $values)
+    ->whereTitleIn(...$values)
+    ->whereTitleLike(...$values)
+    ->whereTitleNotIn(...$values)
+    ->whereTitleBetween(... $values)
      
     ->whereTaxLike(...$values)
     ->whereTaxIn(...$values)
     ->whereTaxNotIn(...$values)
     ->whereTaxBetween(... $values)
      
-    ->whereTypeLike(...$values)
-    ->whereTypeIn(...$values)
-    ->whereTypeNotIn(...$values)
-    ->whereTypeBetween(... $values)
+    ->whereModelLike(...$values)
+    ->whereModelIn(...$values)
+    ->whereModelNotIn(...$values)
+    ->whereModelBetween(... $values)
           
     ->whereTaxPathLike(...$values)
     ->whereTaxPathIn(...$values)
@@ -175,7 +175,7 @@ otherwise your Response will be a `Eusi\Utils\Json` object.
 
 `Eusi\Utils\Json` is a convenience class that implements `ArrayAccess` interface, so you can access the server response either as object or array.
 ```php
-    $response = $bucket->items()->whereName('Rasmus')->fetch(1);
+    $response = $bucket->items()->whereTitle('Rasmus')->fetch(1);
     
     $rasmus = $response['data'][0];
     
