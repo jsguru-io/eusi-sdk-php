@@ -96,7 +96,7 @@ class Json implements \ArrayAccess, \Serializable, Arrayable, \IteratorAggregate
      */
     public function serialize()
     {
-        return \GuzzleHttp\json_encode($this->content);
+        return \GuzzleHttp\json_encode($this->toArray());
     }
 
     /**
@@ -113,7 +113,7 @@ class Json implements \ArrayAccess, \Serializable, Arrayable, \IteratorAggregate
      */
     public function toArray()
     {
-        return $this->content;
+        return \Eusi\jsonUnMap($this);
     }
 
     /**

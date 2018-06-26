@@ -43,7 +43,7 @@ class Async implements AsyncInterface
     public function then(callable $onSuccess = null, callable $onError = null)
     {
         if ($onSuccess && $onError) {
-            return new static($this->promise->then(function (Response $response) use (&$onSuccess) {
+            return new static($this->promise->then(function (Response $response) use ($onSuccess) {
                 $onSuccess(jsonMap($response->getBody()), $response->getStatusCode());
             }, function (Response $response) use (&$onError) {
                 $onError(jsonMap($response->getBody()), $response->getStatusCode());
@@ -51,13 +51,13 @@ class Async implements AsyncInterface
         }
 
         if ($onSuccess && !$onError) {
-            return new static($this->promise->then(function (Response $response) use (&$onSuccess) {
+            return new static($this->promise->then(function (Response $response) use ($onSuccess) {
                 $onSuccess(jsonMap($response->getBody()), $response->getStatusCode());
             }));
         }
 
         if (!$onSuccess && $onError) {
-            return new static($this->promise->then(null, function (Response $response) use (&$onError) {
+            return new static($this->promise->then(null, function (Response $response) use ($onError) {
                 $onError(jsonMap($response->getBody()), $response->getStatusCode());
             }));
         }

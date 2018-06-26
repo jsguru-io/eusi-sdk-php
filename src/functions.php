@@ -8,6 +8,8 @@
 
 namespace Eusi;
 
+use Eusi\Utils\Json;
+
 /**
  * Checki if a string contains a string
  *
@@ -67,7 +69,7 @@ function http_query($params = [])
  */
 function jsonDecode($json)
 {
-    return new \Eusi\Utils\Json(\GuzzleHttp\json_decode($json, true));
+    return new Json(\GuzzleHttp\json_decode($json, true));
 }
 
 /**
@@ -123,10 +125,46 @@ function jsonMap(string $json)
         }
     }
 
-    return new \Eusi\Utils\Json([
+    return new Json([
         'data' => $iterator->getArrayCopy()['data'],
-        'pagination' => new \Eusi\Utils\Json($json['pagination'])
+        'pagination' => new Json($json['pagination'])
     ]);
+}
+
+/**
+ * @param Json $json
+ * @return array
+ */
+function jsonUnMap(Json $json): array
+{
+    $arrayIterator = $json->getIterator();
+
+    $iterator = new \RecursiveIteratorIterator(
+        $arrayIterator, \RecursiveIteratorIterator::CHILD_FIRST
+    );
+
+    foreach ($iterator as $key => $value) {
+
+        if (is_object($value) && method_exists($value, 'toArray')) {
+
+            $newValue = $value->toArray();
+
+            // Get the current depth and traverse back up the tree, saving the modifications
+            $currentDepth = $iterator->getDepth();
+            for ($subDepth = $currentDepth; $subDepth >= 0; $subDepth--) {
+                // Get the current level iterator
+                $subIterator = $iterator->getSubIterator($subDepth);
+                // If we are on the level we want to change, use $newValue otherwise set the key to the parent iterators value
+                if ($currentDepth === $subDepth) {
+                    $subIterator->offsetSet($subIterator->key(), $newValue);
+                } else {
+                    $subIterator->offsetSet($subIterator->key(), $iterator->getSubIterator($subDepth + 1)->getArrayCopy());
+                }
+            }
+        }
+    }
+
+    return $iterator->getArrayCopy();
 }
 
 /**
