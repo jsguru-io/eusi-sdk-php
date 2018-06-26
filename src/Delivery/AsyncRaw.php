@@ -18,7 +18,7 @@ use function Eusi\exceptionAsJson;
  *
  * @package Eusi\Delivery
  */
-class AsyncRaw implements AsyncInterface
+class AsyncRaw extends AbstractAsync implements AsyncInterface
 {
     protected $promise;
 
@@ -66,11 +66,11 @@ class AsyncRaw implements AsyncInterface
      * @param bool $silent
      * @return StreamInterface|null|void
      */
-    public function unwrap($silent = true)
+    public function unwrap($silent = false)
     {
         try {
 
-            $response = $this->promise->wait();
+            $response = $this->promise->wait(!$silent);
 
             return $response->getBody();
 

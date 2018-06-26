@@ -39,4 +39,9 @@ interface AsyncInterface
      * @throws \LogicException
      */
     public function unwrap($silent = true);
+
+    /**
+     * @return PromiseInterface
+     */
+    public function promise();
 }

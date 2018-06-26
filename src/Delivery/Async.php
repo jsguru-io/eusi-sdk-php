@@ -21,7 +21,7 @@ use function Eusi\exceptionAsJson;
  * 
  * @package Eusi\Delivery
  */
-class Async implements AsyncInterface
+class Async extends AbstractAsync implements AsyncInterface
 {
     protected $promise;
 
@@ -70,11 +70,11 @@ class Async implements AsyncInterface
      * @return \Eusi\Utils\Json|null|void
      * @throws EusiSDKException
      */
-    public function unwrap($silent = true)
+    public function unwrap($silent = false)
     {
         try {
 
-            $response =  $this->promise->wait();
+            $response =  $this->promise->wait(!$silent);
 
             return jsonMap($response->getBody());
 

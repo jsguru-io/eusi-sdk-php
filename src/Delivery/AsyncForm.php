@@ -15,7 +15,7 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\StreamInterface;
 use function Eusi\exceptionAsJson;
 
-class AsyncForm implements AsyncInterface
+class AsyncForm extends AbstractAsync implements AsyncInterface
 {
     protected $promise;
 
@@ -61,13 +61,13 @@ class AsyncForm implements AsyncInterface
 
     /**
      * @param bool $silent
-     * @return \Eusi\Utils\Json|mixed|null|void
+     * @return bool|\Eusi\Utils\Json|mixed|null
      */
-    public function unwrap($silent = true)
+    public function unwrap($silent = false)
     {
         try {
 
-            $response = $this->promise->wait();
+            $response = $this->promise->wait(!$silent);
 
             return jsonDecode($response->getBody())['success'];
 
