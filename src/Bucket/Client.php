@@ -177,6 +177,7 @@ class Client extends \Eusi\Client
                     exceptionAsJson($e);
                 }
 
+                break;
             default:
                 exceptionAsJson(new \BadMethodCallException());
                 break;

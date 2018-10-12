@@ -184,7 +184,7 @@ otherwise your Response will be a `Eusi\Utils\Json` object.
     $rasmus = $response->data[0];
 ```
 
-All async methods return an object implementing `Eusi\Delivery\AysncInterface`. 
+All async methods return an object implementing `Eusi\Delivery\AsyncInterface`. 
 
 That is a thin wrapper around Guzzle PSR-7 compliant Promises which allow us to manipulate the response and maintain a consistent API for both synchronous and asynchronous requests. 
  

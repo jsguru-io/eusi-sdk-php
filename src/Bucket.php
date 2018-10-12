@@ -13,11 +13,8 @@ use Eusi\Auth\BearerToken;
 use Eusi\Auth\MemberToken;
 use Eusi\Bucket\Client;
 use Eusi\Bucket\Entity;
-use Eusi\Delivery\DoQuery;
-use Eusi\Delivery\FetchQuery;
 use Eusi\Delivery\HttpQueryBuilder;
 use Eusi\Delivery\HttpQuery;
-use Eusi\Delivery\Models\Field;
 use Eusi\Delivery\Models\Form;
 use Eusi\Delivery\Models\Member;
 use Eusi\Utils\Json;
@@ -165,7 +162,7 @@ class Bucket
      */
     public function fetchItems($where = [])
     {
-        return jsonMap($this->fetchRaw($where));
+        return jsonMap($this->fetchItemsRaw($where));
     }
 
     /**
