@@ -98,7 +98,7 @@ class Bucket
         $body = jsonDecode($response->getBody());
 
         $memberToken = new MemberToken(
-            $body['id'], $body['token'], $body['member_id'], $body['created_at'], $body['updated_at']
+            $body['id'], $body['token'], $body['created_at'], $body['updated_at']
         );
 
         $this->entity->setMemberToken($memberToken);
@@ -154,6 +154,29 @@ class Bucket
     public function getUser()
     {
         return $this->entity->getMember();
+    }
+
+    /**
+     * @param $keyOrId
+     * @return Json
+     */
+    public function fetchItem($keyOrId)
+    {
+        return jsonMap($this->fetchItemRaw($keyOrId));
+    }
+
+    /**
+     * @param $keyOrId
+     * @return \Psr\Http\Message\StreamInterface
+     */
+    public function fetchItemRaw($keyOrId)
+    {
+        $response = $this->client->get(
+            "{$this->client->getItemsEndpoint()}/{$keyOrId}",
+            ['Authorization' => $this->entity->getToken()]
+        );
+
+        return $response->getBody();
     }
 
     /**

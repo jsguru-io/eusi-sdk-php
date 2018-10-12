@@ -8,6 +8,7 @@
 
 namespace Eusi;
 
+use Eusi\Auth\BearerToken;
 use Eusi\Auth\Client as AuthClient;
 use Eusi\Exceptions\EusiSDKException;
 
@@ -125,14 +126,15 @@ class Eusi
     /**
      * Get access token and authorize bucket
      *
+     * @param BearerToken|null $token
      * @return $this
      * @throws EusiSDKException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function authorize()
+    public function authorize(BearerToken $token = null)
     {
         if (!$this->bucket) {
-            $accessToken = $this->authClient->getAccessToken();
+            $accessToken = $token ?: $this->authClient->getAccessToken();
 
             $this->setBucket(new Bucket(
                 $accessToken,
@@ -155,6 +157,14 @@ class Eusi
     public function setBucket(Bucket $bucket)
     {
         $this->bucket = $bucket;
+    }
+
+    /**
+     * @return void
+     */
+    public function unsetBucket()
+    {
+        unset($this->bucket);
     }
 
     /**

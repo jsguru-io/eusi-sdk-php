@@ -65,9 +65,11 @@ class Entity
         if ($token instanceof MemberToken) {
             $this->setMemberToken($token);
         } else if ($token instanceof AccessToken) {
-            $this->setAcceToken($token);
+            $this->setAccessToken($token);
         } else {
-            throw new InvalidTokenException();
+            throw new InvalidTokenException(
+                "Token must be an instance of either ".AccessToken::class." or ".MemberToken::class
+            );
         }
     }
 
@@ -125,7 +127,7 @@ class Entity
     /**
      * @param AccessToken $token
      */
-    public function setAcceToken(AccessToken $token)
+    public function setAccessToken(AccessToken $token)
     {
         $this->accessToken = $token;
     }

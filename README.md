@@ -44,7 +44,17 @@ EUSI_BUCKET_SECRET=agent-007
 $eusi = new Eusi\Eusi();
 ``` 
 #### Authorization
-To get an access token call authorize, to get a higher level access token login a user.
+To get an access token call authorize. If you have previously stored the token somewhere you can provide it as an argument as well. 
+```php  
+$bucket = $eusi->authorize()->bucket();
+
+// or
+
+$bucker = $eusi->authorize(new AccessToken('xxx-xxx-xxx'))->bucket();
+```
+
+
+To get a higher level access token login a user.
 
 ```php  
 $bucket = $eusi->authorize()->bucket();
@@ -65,6 +75,12 @@ $bucket->taxonomyRaw('taxonomy-id-or-key');
 ```
 
 #### Fetching content
+
+##### Fetch one item
+
+```php
+$item = $bucket->fetchItem($keyOrId);
+```
 
 ##### Synchronous
 ```php
