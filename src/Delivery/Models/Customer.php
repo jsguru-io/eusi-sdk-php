@@ -15,7 +15,7 @@ class Customer extends Json
 {
     public function __construct(array $content = [])
     {
-        $required = ['email', 'address', 'city', 'zip', 'country'];
+        $required = ['email', 'address', 'city', 'zip', 'country', 'first_name', 'last_name'];
 
         foreach ($required as $key) {
             if (!isset($content[$key])) {
