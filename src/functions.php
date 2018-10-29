@@ -11,7 +11,7 @@ namespace Eusi;
 use Eusi\Utils\Json;
 
 /**
- * Checki if a string contains a string
+ * Check if a string contains a string
  *
  * @param $haystack
  * @param $needle
@@ -86,9 +86,11 @@ function jsonMap(string $json)
         $arrayIterator, \RecursiveIteratorIterator::CHILD_FIRST
     );
 
+    $mapKeys = ['content', 'linked_content', 'data', 'media', 'order_items'];
+
     foreach ($iterator as $key => $value) {
 
-        if (!is_numeric($key) && ($key === 'content' || $key === 'linked_content' || $key === 'data' || $key === 'media')) {
+        if (!is_numeric($key) && in_array($key, $mapKeys)) {
 
             if (is_array($value) && !empty($value)) {
 
@@ -165,6 +167,22 @@ function jsonUnMap(Json $json): array
     }
 
     return $iterator->getArrayCopy();
+}
+
+/**
+ * @param array $order
+ * @return Delivery\Models\Order
+ * @throws Exceptions\EusiSDKException
+ */
+function mapOrdersResponse(array $order)
+{
+    $orderDetails = array_filter($order, function ($v, $k) {
+        return !in_array($k, ['customer', 'order_items']);
+    }, ARRAY_FILTER_USE_BOTH);
+
+    $customer = new \Eusi\Delivery\Models\Customer($order['customer']);
+
+    return new \Eusi\Delivery\Models\Order($customer, $orderDetails, $order['order_items']);
 }
 
 /**

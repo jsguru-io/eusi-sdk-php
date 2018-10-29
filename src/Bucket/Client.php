@@ -40,6 +40,8 @@ class Client extends \Eusi\Client
 
     const TAXONOMY_PATH = '/taxonomy';
 
+    const ORDERS_PATH = '/orders';
+
     /**
      * @var string|null
      */
@@ -119,6 +121,15 @@ class Client extends \Eusi\Client
     public function getTaxonomyEndpoint($identifier)
     {
         return static::TAXONOMY_PATH . "/$identifier";
+    }
+
+    /**
+     * @param string $identifier
+     * @return string
+     */
+    public function getOrdersEndpoint($identifier = '')
+    {
+        return static::ORDERS_PATH . "/$identifier";
     }
 
     /**

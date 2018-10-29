@@ -37,7 +37,7 @@ class EusiSDKException extends \Exception implements Arrayable
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct($message, int $code = 0, Throwable $previous = null)
+    public function __construct($message, int $code = 1, Throwable $previous = null)
     {
 
         if ($this->isHttpResponse($message)) {

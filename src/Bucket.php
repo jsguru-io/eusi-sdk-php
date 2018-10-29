@@ -15,8 +15,10 @@ use Eusi\Bucket\Client;
 use Eusi\Bucket\Entity;
 use Eusi\Delivery\HttpQueryBuilder;
 use Eusi\Delivery\HttpQuery;
+use Eusi\Delivery\Models\Customer;
 use Eusi\Delivery\Models\Form;
 use Eusi\Delivery\Models\Member;
+use Eusi\Delivery\Models\Order;
 use Eusi\Utils\Json;
 use GuzzleHttp\ClientInterface as HttpClientInterface;
 
@@ -252,5 +254,36 @@ class Bucket
         $form = json_decode($response->getBody(), true);
 
         return new Form($form, $this->client);
+    }
+
+    /**
+     * @param $identifier
+     * @return Order
+     * @throws Exceptions\EusiSDKException
+     */
+    public function fetchOrder($identifier)
+    {
+        $response = $this->client->get(
+            $this->client->getOrdersEndpoint($identifier),
+            ['Authorization' => $this->entity->getToken()]
+        );
+
+        return mapOrdersResponse(json_decode($response->getBody(), true));
+    }
+
+    /**
+     * @param Order $order
+     * @return Order
+     * @throws Exceptions\EusiSDKException
+     */
+    public function submitOrder(Order $order)
+    {
+        $response = $this->client->post(
+            $this->client->getOrdersEndpoint(),
+            (string) $order,
+            ['Authorization' => $this->entity->getToken()]
+        );
+
+        return mapOrdersResponse(json_decode($response->getBody(), true));
     }
 }
