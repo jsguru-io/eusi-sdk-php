@@ -34,4 +34,9 @@ class Order extends Json
 
         parent::__construct(array_merge($orderDetails, ['customer' => $customer, 'order_items' => $orderItems]));
     }
+
+    public function id()
+    {
+        return $this['id'];
+    }
 }

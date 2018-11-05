@@ -286,4 +286,36 @@ class Bucket
 
         return mapOrdersResponse(json_decode($response->getBody(), true));
     }
+
+    /**
+     * @param Order $order
+     * @return Order
+     * @throws Exceptions\EusiSDKException
+     */
+    public function confirmOrder(Order $order)
+    {
+        $response = $this->client->post(
+            $this->client->getOrdersEndpoint($order->id()).'/confirm',
+            null,
+            ['Authorization' => $this->entity->getToken()]
+        );
+
+        return mapOrdersResponse(json_decode($response->getBody(), true));
+    }
+
+    /**
+     * @param Order $order
+     * @return Order
+     * @throws Exceptions\EusiSDKException
+     */
+    public function declineOrder(Order $order)
+    {
+        $response = $this->client->post(
+            $this->client->getOrdersEndpoint($order->id()).'/decline',
+            null,
+            ['Authorization' => $this->entity->getToken()]
+        );
+
+        return mapOrdersResponse(json_decode($response->getBody(), true));
+    }
 }
