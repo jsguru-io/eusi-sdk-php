@@ -288,14 +288,14 @@ class Bucket
     }
 
     /**
-     * @param Order $order
+     * @param Order|string $order
      * @return Order
      * @throws Exceptions\EusiSDKException
      */
-    public function confirmOrder(Order $order)
+    public function confirmOrder($order)
     {
         $response = $this->client->post(
-            $this->client->getOrdersEndpoint($order->id()).'/confirm',
+            $this->client->getOrdersEndpoint($order instanceof Order ? $order->id() : $order).'/confirm',
             null,
             ['Authorization' => $this->entity->getToken()]
         );
@@ -304,14 +304,14 @@ class Bucket
     }
 
     /**
-     * @param Order $order
+     * @param Order|string $order
      * @return Order
      * @throws Exceptions\EusiSDKException
      */
-    public function declineOrder(Order $order)
+    public function declineOrder($order)
     {
         $response = $this->client->post(
-            $this->client->getOrdersEndpoint($order->id()).'/decline',
+            $this->client->getOrdersEndpoint($order instanceof Order ? $order->id() : $order).'/decline',
             null,
             ['Authorization' => $this->entity->getToken()]
         );
