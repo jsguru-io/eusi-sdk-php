@@ -555,93 +555,93 @@ class HttpQueryBuilderTest extends TestCase
 
     public function test_where_element_equals_filter()
     {
-        $this->assertSame("?element.prop=test", $this->makeQueryBuilder()->where("element.prop", "=", "test")->getQueryString());
+        $this->assertSame("?elem.prop=test", $this->makeQueryBuilder()->where("elem.prop", "=", "test")->getQueryString());
 
-        $this->assertSame("?element.prop=test", $this->makeQueryBuilder()->where("element.prop", "test")->getQueryString());
+        $this->assertSame("?elem.prop=test", $this->makeQueryBuilder()->where("elem.prop", "test")->getQueryString());
 
-        $this->assertSame("?element.prop=test", $this->makeQueryBuilder()->whereElement('prop', 'test')->getQueryString());
+        $this->assertSame("?elem.prop=test", $this->makeQueryBuilder()->whereElement('prop', 'test')->getQueryString());
     }
 
     public function test_where_element_lesser_than_filter()
     {
-        $this->assertSame('?element.prop[$lt]=test', $this->makeQueryBuilder()->where('element.prop', '<', 'test')->getQueryString());
+        $this->assertSame('?elem.prop[$lt]=test', $this->makeQueryBuilder()->where('elem.prop', '<', 'test')->getQueryString());
 
-        $this->assertSame('?element.prop[$lt]=test-1&element.prop[$lt]=test-2', $this->makeQueryBuilder()->where('element.prop', '<', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?elem.prop[$lt]=test-1&elem.prop[$lt]=test-2', $this->makeQueryBuilder()->where('elem.prop', '<', ['test-1', 'test-2'])->getQueryString());
     }
 
     public function test_where_element_lesser_equals_than_filter()
     {
-        $this->assertSame('?element.prop[$lte]=test', $this->makeQueryBuilder()->where('element.prop', '<=', 'test')->getQueryString());
+        $this->assertSame('?elem.prop[$lte]=test', $this->makeQueryBuilder()->where('elem.prop', '<=', 'test')->getQueryString());
 
-        $this->assertSame('?element.prop[$lte]=test-1&element.prop[$lte]=test-2', $this->makeQueryBuilder()->where('element.prop', '<=', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?elem.prop[$lte]=test-1&elem.prop[$lte]=test-2', $this->makeQueryBuilder()->where('elem.prop', '<=', ['test-1', 'test-2'])->getQueryString());
     }
 
     public function test_where_element_greater_than_filter()
     {
-        $this->assertSame('?element.prop[$gt]=test', $this->makeQueryBuilder()->where('element.prop', '>', 'test')->getQueryString());
+        $this->assertSame('?elem.prop[$gt]=test', $this->makeQueryBuilder()->where('elem.prop', '>', 'test')->getQueryString());
 
-        $this->assertSame('?element.prop[$gt]=test-1&element.prop[$gt]=test-2', $this->makeQueryBuilder()->where('element.prop', '>', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?elem.prop[$gt]=test-1&elem.prop[$gt]=test-2', $this->makeQueryBuilder()->where('elem.prop', '>', ['test-1', 'test-2'])->getQueryString());
     }
 
     public function test_where_element_greater_equals_than_filter()
     {
-        $this->assertSame('?element.prop[$gte]=test', $this->makeQueryBuilder()->where('element.prop', '>=', 'test')->getQueryString());
+        $this->assertSame('?elem.prop[$gte]=test', $this->makeQueryBuilder()->where('elem.prop', '>=', 'test')->getQueryString());
 
-        $this->assertSame('?element.prop[$gte]=test-1&element.prop[$gte]=test-2', $this->makeQueryBuilder()->where('element.prop', '>=', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?elem.prop[$gte]=test-1&elem.prop[$gte]=test-2', $this->makeQueryBuilder()->where('elem.prop', '>=', ['test-1', 'test-2'])->getQueryString());
     }
 
     public function test_where_element_like_filter()
     {
-        $this->assertSame('?element.test[$like]=%test%', $this->makeQueryBuilder()->where('element.test', 'like', '%test%')->getQueryString());
+        $this->assertSame('?elem.test[$like]=%test%', $this->makeQueryBuilder()->where('elem.test', 'like', '%test%')->getQueryString());
 
-        $this->assertSame('?element.test[$like]=%test%', $this->makeQueryBuilder()->where('element.test', '~', '%test%')->getQueryString());
+        $this->assertSame('?elem.test[$like]=%test%', $this->makeQueryBuilder()->where('elem.test', '~', '%test%')->getQueryString());
 
         $this->assertSame(
-            '?element.test[$like]=%test-1%&element.test[$like]=%test-2%',
+            '?elem.test[$like]=%test-1%&elem.test[$like]=%test-2%',
             $this->makeQueryBuilder()->whereElementLike('test', '%test-1%', '%test-2%')->getQueryString()
         );
 
         $this->assertSame(
-            '?element.test[$like]=%test-1%&element.test[$like]=%test-2%',
+            '?elem.test[$like]=%test-1%&elem.test[$like]=%test-2%',
             $this->makeQueryBuilder()->whereElementLike('test', ['%test-1%', '%test-2%'])->getQueryString()
         );
 
         $this->assertSame(
-            '?element.test[$like]=%test-1%&element.test[$like]=%test-2%',
-            $this->makeQueryBuilder()->where('element.test', 'like', ['%test-1%', '%test-2%'])->getQueryString()
+            '?elem.test[$like]=%test-1%&elem.test[$like]=%test-2%',
+            $this->makeQueryBuilder()->where('elem.test', 'like', ['%test-1%', '%test-2%'])->getQueryString()
         );
     }
 
     public function test_where_element_in_filter()
     {
-        $this->assertSame('?element.prop[$in]=test', $this->makeQueryBuilder()->where('element.prop', 'in', 'test')->getQueryString());
+        $this->assertSame('?elem.prop[$in]=test', $this->makeQueryBuilder()->where('elem.prop', 'in', 'test')->getQueryString());
 
-        $this->assertSame('?element.prop[$in]=test-1&element.prop[$in]=test-2', $this->makeQueryBuilder()->whereElementIn('prop', 'test-1', 'test-2')->getQueryString());
+        $this->assertSame('?elem.prop[$in]=test-1&elem.prop[$in]=test-2', $this->makeQueryBuilder()->whereElementIn('prop', 'test-1', 'test-2')->getQueryString());
 
-        $this->assertSame('?element.prop[$in]=test-1&element.prop[$in]=test-2', $this->makeQueryBuilder()->whereElementIn('prop', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?elem.prop[$in]=test-1&elem.prop[$in]=test-2', $this->makeQueryBuilder()->whereElementIn('prop', ['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?element.prop[$in]=test-1&element.prop[$in]=test-2', $this->makeQueryBuilder()->where('element.prop', 'in', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?elem.prop[$in]=test-1&elem.prop[$in]=test-2', $this->makeQueryBuilder()->where('elem.prop', 'in', ['test-1', 'test-2'])->getQueryString());
     }
 
     public function test_where_element_not_in_filter()
     {
-        $this->assertSame('?element.prop[$ne]=test', $this->makeQueryBuilder()->where('element.prop', '!=', 'test')->getQueryString());
+        $this->assertSame('?elem.prop[$ne]=test', $this->makeQueryBuilder()->where('elem.prop', '!=', 'test')->getQueryString());
 
-        $this->assertSame('?element.prop[$ne]=test-1&element.prop[$ne]=test-2', $this->makeQueryBuilder()->whereElementNotIn('prop', 'test-1', 'test-2')->getQueryString());
+        $this->assertSame('?elem.prop[$ne]=test-1&elem.prop[$ne]=test-2', $this->makeQueryBuilder()->whereElementNotIn('prop', 'test-1', 'test-2')->getQueryString());
 
-        $this->assertSame('?element.prop[$ne]=test-1&element.prop[$ne]=test-2', $this->makeQueryBuilder()->whereElementNotIn('prop', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?elem.prop[$ne]=test-1&elem.prop[$ne]=test-2', $this->makeQueryBuilder()->whereElementNotIn('prop', ['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?element.prop[$ne]=test-1&element.prop[$ne]=test-2', $this->makeQueryBuilder()->where('element.prop', '!=', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?elem.prop[$ne]=test-1&elem.prop[$ne]=test-2', $this->makeQueryBuilder()->where('elem.prop', '!=', ['test-1', 'test-2'])->getQueryString());
     }
 
     public function test_where_element_between_filter()
     {
-        $this->assertSame('?element.prop[$between]=test-1,test-2', $this->makeQueryBuilder()->where('element.prop', 'btw', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?elem.prop[$between]=test-1,test-2', $this->makeQueryBuilder()->where('elem.prop', 'btw', ['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?element.prop[$between]=test-1,test-2', $this->makeQueryBuilder()->whereElementBetween('prop', 'test-1', 'test-2')->getQueryString());
+        $this->assertSame('?elem.prop[$between]=test-1,test-2', $this->makeQueryBuilder()->whereElementBetween('prop', 'test-1', 'test-2')->getQueryString());
 
-        $this->assertSame('?element.prop[$between]=test-1,test-2', $this->makeQueryBuilder()->whereElementBetween('prop', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?elem.prop[$between]=test-1,test-2', $this->makeQueryBuilder()->whereElementBetween('prop', ['test-1', 'test-2'])->getQueryString());
 
-        $this->assertSame('?element.prop[$between]=test-1,test-2', $this->makeQueryBuilder()->where('element.prop', 'between', ['test-1', 'test-2'])->getQueryString());
+        $this->assertSame('?elem.prop[$between]=test-1,test-2', $this->makeQueryBuilder()->where('elem.prop', 'between', ['test-1', 'test-2'])->getQueryString());
     }
 }

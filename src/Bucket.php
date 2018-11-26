@@ -15,7 +15,6 @@ use Eusi\Bucket\Client;
 use Eusi\Bucket\Entity;
 use Eusi\Delivery\HttpQueryBuilder;
 use Eusi\Delivery\HttpQuery;
-use Eusi\Delivery\Models\Customer;
 use Eusi\Delivery\Models\Form;
 use Eusi\Delivery\Models\Member;
 use Eusi\Delivery\Models\Order;

@@ -83,7 +83,7 @@ class HttpQueryBuilder
         'taxonomy' => 'sys.taxonomy',
         'taxonomy.path' => 'sys.taxonomy.path',
         'tax.path' => 'sys.taxonomy.path',
-        'element' => 'element',
+        'element' => 'elem',
         // Deprecated keys
         'type' => 'sys.model',
         'name' => 'sys.title',
@@ -145,7 +145,7 @@ class HttpQueryBuilder
             $keyValue = $args[0];
             unset($args[0]);
             $args = array_values($args);
-            $key .= '.'.$keyValue;
+            $key = 'elem.'.$keyValue;
         }
 
         $operator = $this->getOperatorFromMethod($params, $paramsCount);
@@ -193,7 +193,7 @@ class HttpQueryBuilder
     {
         $key = strtolower($key);
 
-        if (strpos($key, 'element.') === 0) {
+        if (strpos($key, 'elem.') === 0) {
             return $key;
         }
 

@@ -111,8 +111,8 @@ For your convenience we made a query builder, it might be familiar to you from L
 ```php
     $items = $bucket->items()
         ->where('sys.name', 'like', '%rasmus%')
-        ->where('element.elem_name', 'in', 'foo', 'bar')
-        ->where('element.elem_date', 'btw', ['2017-01-01', '2018-01-01'])
+        ->where('elem.elem_name', 'in', 'foo', 'bar')
+        ->where('elem.elem_date', 'btw', ['2017-01-01', '2018-01-01'])
         ->fetch();
 ```
 
